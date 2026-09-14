@@ -8,7 +8,8 @@ function Hero() {
                 <div className="text-2xl max-w-2xl">Build workflows visually using simple blocks. No coding required. Monitor course registration, LMS deadlines, attendance thresholds, and exam updates.
                 </div>
                 <div className="flex gap-4">
-                    <button className="px-4 py-3 border border-gray-200 rounded-[10px] bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-[110%] "> Create Automation </button >
+                    <Link to="/create-automation"><button className="px-4 py-3 border border-gray-200 rounded-[10px] bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-[110%] "> + Create Automation </button >
+                    </Link>
                     <Link to="/templates"><button className="px-4 py-3 border-2 border-gray-200 rounded-[10px] bg-white hover:bg-slate-100 font-semibold"> Explore Templates </button></Link>
                 </div>
 

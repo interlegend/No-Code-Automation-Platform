@@ -1,9 +1,9 @@
-import logo from "./assets/logo.jpg"
-import profile from "./assets/profile.jpg"
+import logo from "../assets/logo.jpg"
+import profile from "../assets/profile.jpg"
 import { Link } from "react-router-dom"
 function Nav() {
     return (
-        <nav className="flex flex-row h-20 w-full gap-40 items-center justify-evenly bg-white px-5">
+        <nav className="flex flex-row h-20 w-full items-center justify-evenly bg-white px-5">
             <div className="flex gap-5 items-center">
                 <img src={logo} className="h-12 w-12" alt="logo" />
                 <div className="font-bold flex items-center text-2xl">No Code Automation Platform</div>

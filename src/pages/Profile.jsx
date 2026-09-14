@@ -1,5 +1,4 @@
-import Nav from "./Nav.jsx"
-
+import Nav from "../components/Nav.jsx"
 function Profile() {
     return (
         <>

@@ -1,6 +1,6 @@
-import './App.css'
-import Nav from './Nav.jsx'
-import Hero from './Hero.jsx'
+import '../App.css'
+import Nav from '../components/Nav.jsx'
+import Hero from '../components/Hero.jsx'
 function Home() {
 
 
