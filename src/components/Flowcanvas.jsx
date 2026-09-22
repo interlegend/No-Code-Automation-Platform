@@ -104,7 +104,7 @@ const nodeTypes = {
 
 };
 
-function Flowcanvas() {
+function Flowcanvas({ onNodeSelect }) {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
 
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -142,6 +142,10 @@ function Flowcanvas() {
                     stroke: "#a1a1aa",
                     strokeDasharray: "5,5"
 
+                }}
+                onNodeClick={(event, node) => {
+                    console.log("Node clicked:", node);
+                    onNodeSelect(node);
                 }}
             >
                 <Background />

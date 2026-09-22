@@ -7,12 +7,16 @@ import Logic from '../components/Logic.jsx'
 import Data from '../components/Data.jsx'
 import Storage from '../components/Storage.jsx'
 import Flowcanvas from '../components/Flowcanvas.jsx'
+import Config from '../components/Config.jsx'
+import { useState } from 'react'
 function Create_Automation({ search, setsearch }) {
+    const [selectedNode, setSelectedNode] = useState(null);
+
     return (
-        <div className="flex flex-col w-full h-screen ">
+        <div className="flex flex-col w-full h-screen flex-1">
             <Nav2 />
-            <div className="w-full flex-1 min-h-0 bg-slate-200  grid grid-cols-[18%_1fr_18%] ">
-                <div className="h-full w-full bg-white border border-gray-300 flex flex-col gap-4 min-h-0">
+            <div className=" flex-1 min-h-0 bg-slate-200  flex ">
+                <div className="w-[18%] h-full  bg-white border border-gray-300 flex flex-col gap-4 min-h-0">
                     <div className="flex justify-between p-3 items-center">
                         <div className="flex flex-col gap-1">
                             <div className="font-bold">BLOCKS</div>
@@ -32,12 +36,11 @@ function Create_Automation({ search, setsearch }) {
                         <Storage />
                     </div>
                 </div>
-                <div className="h-full w-full bg-slate-200 border border-gray-300">
-                    <Flowcanvas />
+                <div className=" bg-slate-200 border border-gray-300 flex-1 min-w-0 h-full">
+                    <Flowcanvas onNodeSelect={setSelectedNode} />
                 </div>
-                <div className="h-full w-full bg-white border border-gray-300">
+                <Config selectedNode={selectedNode} setSelectedNode={setSelectedNode} />
 
-                </div>
             </div>
         </div>
     )
