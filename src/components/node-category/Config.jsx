@@ -1,9 +1,7 @@
 
-
-
 function Config({ selectedNode, setSelectedNode }) {
 
-    function toggleNode() {
+    function closeNode() {
         setSelectedNode(null);
     }
 
@@ -19,7 +17,7 @@ function Config({ selectedNode, setSelectedNode }) {
                             <div className="ml-2 p-2 rounded-md text-2xl">{selectedNode.data.icon}</div>
                             <div className="font-bold text-2xl">{selectedNode.data.title}</div>
                         </div>
-                        <button className="flex justify-between mr-4 font-bold text-gray-600 cursor-pointer py-1 px-2 rounded-md hover:bg-gray-300 transition" onClick={toggleNode}>X</button>
+                        <button className="flex justify-between mr-4 font-bold text-gray-600 cursor-pointer py-1 px-2 rounded-md hover:bg-gray-300 transition" onClick={closeNode}>X</button>
                     </div>
                     <div className="flex flex-col gap-4">  <div className="m-4 p-4 border rounded-md bg-gray-100 font-light text-lg">{selectedNode.data.description}</div>
 
