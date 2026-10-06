@@ -4,24 +4,28 @@ function Flow() {
 
     const arr = [
         {
-            "icon": play,
-            "name": "Wait",
-            "description": "Wait for a some time"
+            type: "wait",
+            icon: play,
+            name: "Wait",
+            description: "Wait for a some time"
         },
         {
-            "icon": play,
-            "name": "Repeat",
-            "description": "repeat a task"
+            type: "repeat",
+            icon: play,
+            name: "Repeat",
+            description: "repeat a task"
         },
         {
-            "icon": play,
-            "name": "For Each",
-            "description": "Loop for each element"
+            type: "for_each",
+            icon: play,
+            name: "For Each",
+            description: "Loop for each element"
         },
         {
-            "icon": play,
-            "name": "Stop",
-            "description": "Stop workflow"
+            type: "stop",
+            icon: play,
+            name: "Stop",
+            description: "Stop workflow"
         }
     ]
     return (

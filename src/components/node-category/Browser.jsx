@@ -4,39 +4,46 @@ function Browser() {
 
     const arr = [
         {
-            "icon": play,
-            "name": "Open Website",
-            "description": "Open the website with url"
+            type: "openwebsite",
+            icon: play,
+            name: "Open Website",
+            description: "Open the website with url"
         },
         {
-            "icon": play,
-            "name": "URL",
-            "description": "Go the url"
+            type: "url",
+            icon: play,
+            name: "URL",
+            description: "Go the url"
         },
         {
-            "icon": play,
-            "name": "Click",
-            "description": "Perform click operation"
+            type: "click",
+            icon: play,
+            name: "Click",
+            description: "Perform click operation"
         },
         {
-            "icon": play,
-            "name": "Text",
-            "description": "Enter Text"
+            type: "text",
+            icon: play,
+            name: "Text",
+            description: "Enter Text"
         },
         {
-            "icon": play,
-            "name": "Wait",
-            "description": "Wait for a some time"
+            type: "wait",
+            icon: play,
+            name: "Wait",
+            description: "Wait for a some time"
         },
         {
-            "icon": play,
-            "name": "Find Element",
-            "description": "Find element on screen"
+            type: "find_element",
+            icon: play,
+            name: "Find Element",
+            description: "Find element on screen"
         },
         {
-            "icon": play,
-            "name": "Read text",
-            "description": "Read text on screen"
+            type: "read_text",
+            icon: play,
+            name: "Read text",
+            description: "Read text on screen"
         }
     ]
     return (

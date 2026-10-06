@@ -5,6 +5,17 @@ import Logic_nodes from './nodes/Logic_nodes.jsx';
 import Browser_nodes from './nodes/Browser_nodes.jsx';
 import Flow_nodes from './nodes/Flow_nodes.jsx';
 
+const handleDragOver = (event) => {
+    event.preventDefault();
+}
+
+const handleDrop = (event) => {
+    event.preventDefault();
+    const data = event.dataTransfer.getData("Drag");
+    const item = JSON.parse(data);
+    console.log(item);
+}
+
 const initialNodes = [
     {
         id: "schedule",
@@ -116,7 +127,7 @@ function Flowcanvas({ onNodeSelect }) {
     }
 
     return (
-        <div className="w-full h-full">
+        <div className="w-full h-full" onDragOver={handleDragOver} onDrop={handleDrop}>
             <ReactFlow nodes={nodes} onNodesChange={onNodesChange} edges={edges} onEdgesChange={onEdgesChange} onConnect={onConnect} nodeTypes={nodeTypes}
                 elevateEdgesOnSelect={true}
                 defaultEdgeOptions={{

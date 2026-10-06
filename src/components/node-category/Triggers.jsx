@@ -4,24 +4,28 @@ function Triggers() {
 
     const arr = [
         {
-            "icon": play,
-            "name": "Manual Start",
-            "description": "Trigger Workflow Manually"
+            type: "start",
+            icon: play,
+            name: "Manual Start",
+            description: "Trigger Workflow Manually"
         },
         {
-            "icon": play,
-            "name": "Schedule",
-            "description": "Trigger at a specific time"
+            type: "schedule",
+            icon: play,
+            name: "Schedule",
+            description: "Trigger at a specific time"
         },
         {
-            "icon": play,
-            "name": "Interval",
-            "description": "Trigger after every interval"
+            type: "interval",
+            icon: play,
+            name: "Interval",
+            description: "Trigger after every interval"
         },
         {
-            "icon": play,
-            "name": "Webhook",
-            "description": "Create a webhook"
+            type: "webhook",
+            icon: play,
+            name: "Webhook",
+            description: "Create a webhook"
         }
     ]
 

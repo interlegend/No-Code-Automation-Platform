@@ -3,24 +3,28 @@ import Arr_map from '../Arr_map.jsx'
 function Data() {
     const arr = [
         {
-            "icon": play,
-            "name": "Set Variable",
-            "description": "Set a value for a variable"
+            type: "set_variable",
+            icon: play,
+            name: "Set Variable",
+            description: "Set a value for a variable"
         },
         {
-            "icon": play,
-            "name": "Get Variable",
-            "description": "Get value of a variable"
+            type: "get_variable",
+            icon: play,
+            name: "Get Variable",
+            description: "Get value of a variable"
         },
         {
-            "icon": play,
-            "name": "Calculate",
-            "description": "Perform a calculation based on data"
+            type: "calculate",
+            icon: play,
+            name: "Calculate",
+            description: "Perform a calculation based on data"
         },
         {
-            "icon": play,
-            "name": "Format",
-            "description": "Format data"
+            type: "format",
+            icon: play,
+            name: "Format",
+            description: "Format data"
         }
     ]
     return (

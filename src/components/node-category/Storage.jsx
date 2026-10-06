@@ -4,14 +4,16 @@ function Storage() {
 
     const arr = [
         {
-            "icon": play,
-            "name": "Save Value",
-            "description": "Store The value"
+            type: "save_value",
+            icon: play,
+            name: "Save Value",
+            description: "Store The value"
         },
         {
-            "icon": play,
-            "name": "Get Value",
-            "description": "Get value from storage"
+            type: "get_value",
+            icon: play,
+            name: "Get Value",
+            description: "Get value from storage"
         }
     ]
     return (

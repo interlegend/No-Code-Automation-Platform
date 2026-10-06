@@ -3,24 +3,28 @@ import Arr_map from '../Arr_map.jsx'
 function Logic() {
     const arr = [
         {
-            "icon": play,
-            "name": "Condition",
-            "description": "Check for a condition"
+            type: "condition",
+            icon: play,
+            name: "Condition",
+            description: "Check for a condition"
         },
         {
-            "icon": play,
-            "name": "Branch/Switch",
-            "description": "Switch/branch based on input"
+            type: "switch",
+            icon: play,
+            name: "Branch/Switch",
+            description: "Switch/branch based on input"
         },
         {
-            "icon": play,
-            "name": "Loop",
-            "description": "Execute a block of code repeatedly"
+            type: "loop",
+            icon: play,
+            name: "Loop",
+            description: "Execute a block of code repeatedly"
         },
         {
-            "icon": play,
-            "name": "Error Handling",
-            "description": "Handle errors gracefully"
+            type: "error_handling",
+            icon: play,
+            name: "Error Handling",
+            description: "Handle errors gracefully"
         }
     ]
     return (
