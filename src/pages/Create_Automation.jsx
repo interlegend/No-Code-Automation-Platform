@@ -8,6 +8,7 @@ import Data from '../components/node-category/Data.jsx'
 import Storage from '../components/node-category/Storage.jsx'
 import Flowcanvas from '../components/Flowcanvas.jsx'
 import Config from '../components/node-category/Config.jsx'
+import { ReactFlowProvider } from "@xyflow/react";
 import { useState } from 'react'
 function Create_Automation({ search, setsearch }) {
     const [selectedNode, setSelectedNode] = useState(null);
@@ -37,7 +38,9 @@ function Create_Automation({ search, setsearch }) {
                     </div>
                 </div>
                 <div className=" bg-slate-200 border border-gray-300 flex-1 min-w-0 h-full">
-                    <Flowcanvas onNodeSelect={setSelectedNode} />
+                    <ReactFlowProvider>
+                        <Flowcanvas onNodeSelect={setSelectedNode} />
+                    </ReactFlowProvider>
                 </div>
                 <Config selectedNode={selectedNode} setSelectedNode={setSelectedNode} />
 

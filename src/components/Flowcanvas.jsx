@@ -1,20 +1,11 @@
-import { ReactFlow, Background, Controls, useNodesState, useEdgesState, addEdge, MarkerType } from "@xyflow/react"
+import { ReactFlow, Background, Controls, useNodesState, useEdgesState, addEdge, MarkerType, useReactFlow, } from "@xyflow/react"
 import "@xyflow/react/dist/style.css";
 import Triggers_nodes from './nodes/Triggers_nodes.jsx';
 import Logic_nodes from './nodes/Logic_nodes.jsx';
 import Browser_nodes from './nodes/Browser_nodes.jsx';
 import Flow_nodes from './nodes/Flow_nodes.jsx';
 
-const handleDragOver = (event) => {
-    event.preventDefault();
-}
 
-const handleDrop = (event) => {
-    event.preventDefault();
-    const data = event.dataTransfer.getData("Drag");
-    const item = JSON.parse(data);
-    console.log(item);
-}
 
 const initialNodes = [
     {
@@ -116,9 +107,47 @@ const nodeTypes = {
 };
 
 function Flowcanvas({ onNodeSelect }) {
+
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
 
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+
+    const { screenToFlowPosition } = useReactFlow();
+
+    const handleDragOver = (event) => {
+        event.preventDefault();
+    }
+
+    const handleDrop = (event) => {
+        event.preventDefault();
+        const data = event.dataTransfer.getData("Drag");
+        const item = JSON.parse(data);
+        console.log(item);
+
+        const position = screenToFlowPosition({
+            x: event.clientX,
+            y: event.clientY
+        });
+
+        const newNode = {
+            id: crypto.randomUUID(),
+            type: item.type,
+            position: position,
+            data: {
+                icon: item.icon,
+                title: item.name,
+                description: item.description
+            }
+        };
+
+        setNodes((currentNodes) => [
+            ...currentNodes,
+            newNode
+        ]);
+    }
+
+
 
     const onConnect = (connection) => {
         setEdges((currentEdges) => {
