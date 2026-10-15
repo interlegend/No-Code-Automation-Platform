@@ -1,3 +1,4 @@
+import play from '../assets/play.png'
 function Arr_map({ arr, Title }) {
 
     const handleDragStart = (event, item) => {

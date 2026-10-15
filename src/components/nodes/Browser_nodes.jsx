@@ -6,7 +6,10 @@ function Browser_nodes({ data }) {
             <div className="border-2 border-gray-200 shadow-sm w-50 h-30  items-center justify-center hover:border-gray-100 hover:shadow-md">
                 <div className="font-semibold text-cyan-700  h-[35%] bg-cyan-100 flex justify-center items-center border-t-4">BROWSER</div>
                 <div className="  h-[65%] bg-white flex justify-start px-2 py-2 flex-col gap-2">
-                    <div className="font-bold">{data.icon}{data.title}</div>
+                    <div className="font-bold flex items-center gap-2">
+                        <img src={data.icon} alt="" className="w-5 h-5" />
+                        <div>{data.title}</div>
+                    </div>
                     <div className="font-light text-sm">{data.description}</div>
                 </div>
 

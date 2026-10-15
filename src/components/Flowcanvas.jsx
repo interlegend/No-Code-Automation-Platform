@@ -4,113 +4,64 @@ import Triggers_nodes from './nodes/Triggers_nodes.jsx';
 import Logic_nodes from './nodes/Logic_nodes.jsx';
 import Browser_nodes from './nodes/Browser_nodes.jsx';
 import Flow_nodes from './nodes/Flow_nodes.jsx';
+import Data_nodes from './nodes/Data_nodes.jsx';
+import Storage_nodes from './nodes/Storage_nodes.jsx';
 
 
 
-const initialNodes = [
-    {
-        id: "schedule",
-        type: "schedule",
-        position: {
-            x: 100,
-            y: 100
-        },
-        data: {
-            icon: "⚡",
-            title: "Schedule",
-            description: "Schedule a event to run"
-        }
-    },
-
-    {
-        id: "start",
-        type: "start",
-        position: {
-            x: 100,
-            y: 250
-        },
-        data: {
-            icon: "▶️",
-            title: "START",
-            description: "Start trigger"
-        }
-    },
-
-    {
-        id: "interval",
-        type: "interval",
-        position: {
-            x: 100,
-            y: 350
-        },
-        data: {
-            icon: "⏱️",
-            title: "Interval",
-            description: "Set interval for the workflow"
-        }
-
-    },
-    {
-        id: "condition",
-        type: "condition",
-        position: {
-            x: 100,
-            y: 400
-        },
-        data: {
-            icon: "❓",
-            title: "Condition",
-            description: "Condition for the workflow"
-        }
-
-    },
-    {
-        id: "openwebsite",
-        type: "openwebsite",
-        position: {
-            x: 100,
-            y: 350
-        },
-        data: {
-            icon: "🌐",
-            title: "Open website",
-            description: "Opens website Url"
-        }
-
-    },
-    {
-        id: "wait",
-        type: "wait",
-        position: {
-            x: 100,
-            y: 350
-        },
-        data: {
-            icon: "⏳",
-            title: "Wait",
-            description: "Wait for a some time"
-        }
-
-    },
-];
+const initialNodes = [];
 
 const initialEdges = [];
 
 const nodeTypes = {
-    schedule: Triggers_nodes,
+    // Triggers
     start: Triggers_nodes,
+    schedule: Triggers_nodes,
     interval: Triggers_nodes,
-    condition: Logic_nodes,
-    openwebsite: Browser_nodes,
-    wait: Flow_nodes,
+    webhook: Triggers_nodes,
 
+    // Browser
+    openwebsite: Browser_nodes,
+    url: Browser_nodes,
+    click: Browser_nodes,
+    text: Browser_nodes,
+    find_element: Browser_nodes,
+    read_text: Browser_nodes,
+
+    // Logic
+    condition: Logic_nodes,
+    switch: Logic_nodes,
+    loop: Logic_nodes,
+    error_handling: Logic_nodes,
+
+    // Flow
+    wait: Flow_nodes,
+    repeat: Flow_nodes,
+    for_each: Flow_nodes,
+    stop: Flow_nodes,
+
+    // Data
+    set_variable: Data_nodes,
+    get_variable: Data_nodes,
+    calculate: Data_nodes,
+    format: Data_nodes,
+
+    // Storage
+    save_value: Storage_nodes,
+    get_value: Storage_nodes,
 };
 
-function Flowcanvas({ onNodeSelect }) {
+function Flowcanvas({
+    nodes,
+    edges,
+    onNodesChange,
+    onEdgesChange,
+    setNodes,
+    setEdges,
+    onNodeSelect
+}) {
 
-    const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
 
-    const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
 
     const { screenToFlowPosition } = useReactFlow();

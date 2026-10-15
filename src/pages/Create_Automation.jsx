@@ -8,14 +8,21 @@ import Data from '../components/node-category/Data.jsx'
 import Storage from '../components/node-category/Storage.jsx'
 import Flowcanvas from '../components/Flowcanvas.jsx'
 import Config from '../components/node-category/Config.jsx'
-import { ReactFlowProvider } from "@xyflow/react";
+import { ReactFlowProvider, useNodesState, useEdgesState } from "@xyflow/react";
 import { useState } from 'react'
 function Create_Automation({ search, setsearch }) {
+
+    const [nodes, setNodes, onNodesChange] = useNodesState([]);
+
+    const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+
     const [selectedNode, setSelectedNode] = useState(null);
+
+
 
     return (
         <div className="flex flex-col w-full h-screen flex-1">
-            <Nav2 />
+            <Nav2 nodes={nodes} edges={edges} />
             <div className=" flex-1 min-h-0 bg-slate-200  flex ">
                 <div className="w-[18%] h-full  bg-white border border-gray-300 flex flex-col gap-4 min-h-0">
                     <div className="flex justify-between p-3 items-center">
@@ -39,7 +46,16 @@ function Create_Automation({ search, setsearch }) {
                 </div>
                 <div className=" bg-slate-200 border border-gray-300 flex-1 min-w-0 h-full">
                     <ReactFlowProvider>
-                        <Flowcanvas onNodeSelect={setSelectedNode} />
+                        <Flowcanvas
+                            nodes={nodes}
+                            edges={edges}
+                            onNodesChange={onNodesChange}
+                            onEdgesChange={onEdgesChange}
+                            setNodes={setNodes}
+                            setEdges={setEdges}
+                            onNodeSelect={setSelectedNode}
+                        />
+
                     </ReactFlowProvider>
                 </div>
                 <Config selectedNode={selectedNode} setSelectedNode={setSelectedNode} />
