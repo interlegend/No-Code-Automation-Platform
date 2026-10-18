@@ -7,7 +7,7 @@ import Logic from '../components/node-category/Logic.jsx'
 import Data from '../components/node-category/Data.jsx'
 import Storage from '../components/node-category/Storage.jsx'
 import Flowcanvas from '../components/Flowcanvas.jsx'
-import Config from '../components/node-category/Config.jsx'
+import Config from '../components/Config.jsx'
 import { ReactFlowProvider, useNodesState, useEdgesState } from "@xyflow/react";
 import { useState } from 'react'
 function Create_Automation({ search, setsearch }) {
@@ -17,8 +17,6 @@ function Create_Automation({ search, setsearch }) {
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
     const [selectedNode, setSelectedNode] = useState(null);
-
-
 
     return (
         <div className="flex flex-col w-full h-screen flex-1">
@@ -58,7 +56,7 @@ function Create_Automation({ search, setsearch }) {
 
                     </ReactFlowProvider>
                 </div>
-                <Config selectedNode={selectedNode} setSelectedNode={setSelectedNode} />
+                <Config selectedNode={selectedNode} setSelectedNode={setSelectedNode} setNodes={setNodes} />
 
             </div>
         </div>

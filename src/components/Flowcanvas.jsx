@@ -88,7 +88,8 @@ function Flowcanvas({
             data: {
                 icon: item.icon,
                 title: item.name,
-                description: item.description
+                description: item.description,
+                config: item.config ? JSON.parse(JSON.stringify(item.config)) : {} //deep copy not shallow as its not referencing same objects
             }
         };
 
