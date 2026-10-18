@@ -1,0 +1,16 @@
+{
+  "tailwindCSS.experimental.configFile": "React/src/index.css",
+  "tailwindCSS.includeLanguages": {
+    "javascript": "javascriptreact",
+    "javascriptreact": "javascriptreact",
+    "typescript": "typescriptreact",
+    "typescriptreact": "typescriptreact",
+    "html": "html"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}
