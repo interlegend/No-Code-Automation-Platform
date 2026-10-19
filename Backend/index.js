@@ -30,6 +30,21 @@ app.post('/create-automation', async (req, res) => {
 
 })
 
+app.post('/run-automation', async (req, res) => {
+    const { nodes, edges } = req.body;
+    try {
+        const result = await executionEngine(nodes, edges);
+        res.status(200).json({
+            status: 'ok',
+            message: 'Graph Successfully executed',
+            result: result
+        });
+    }
+    catch (err) {
+        res.status(400).json({ status: 'error', message: err.message });
+    }
+})
+
 // Start listening
 
 app.listen(PORT, () => {

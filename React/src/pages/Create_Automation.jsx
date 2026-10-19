@@ -8,9 +8,12 @@ import Data from '../components/node-category/Data.jsx'
 import Storage from '../components/node-category/Storage.jsx'
 import Flowcanvas from '../components/Flowcanvas.jsx'
 import Config from '../components/Config.jsx'
+import Execution_results from '../components/Execution_results.jsx'
 import { ReactFlowProvider, useNodesState, useEdgesState } from "@xyflow/react";
 import { useState } from 'react'
 function Create_Automation({ search, setsearch }) {
+
+    const [showResults, setShowResults] = useState(false);
 
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
 
@@ -20,7 +23,14 @@ function Create_Automation({ search, setsearch }) {
 
     return (
         <div className="flex flex-col w-full h-screen flex-1">
-            <Nav2 nodes={nodes} edges={edges} />
+            <Nav2 nodes={nodes} edges={edges} setShowResults={setShowResults} />
+
+            {showResults && (
+                <Execution_results
+                    onClose={() => setShowResults(false)}
+                />
+            )}
+
             <div className=" flex-1 min-h-0 bg-slate-200  flex ">
                 <div className="w-[18%] h-full  bg-white border border-gray-300 flex flex-col gap-4 min-h-0">
                     <div className="flex justify-between p-3 items-center">
