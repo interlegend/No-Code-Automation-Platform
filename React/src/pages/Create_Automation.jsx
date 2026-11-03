@@ -49,7 +49,7 @@ function Create_Automation({ search, setsearch }) {
                             <div className="font-bold">BLOCKS</div>
                             <div className="text-gray-500">Drag onto canvas to connect</div>
                         </div>
-                        <div className="py-1 px-2 border border-gray-200 rounded-2xl bg-amber-100 text-amber-700">25 Blocks</div>
+                        <div className="py-1 px-2 border border-gray-200 rounded-2xl bg-amber-100 text-amber-700">24 Blocks</div>
                     </div>
                     <div className="w-full p-4 border border-gray-200">
                         <Searchbar Search={search} onSearch={setsearch} Placeholder="Search blocks.." className="h-12 w-full outline-none" />

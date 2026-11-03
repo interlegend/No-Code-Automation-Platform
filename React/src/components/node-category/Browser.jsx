@@ -48,19 +48,6 @@ function Browser() {
             }
         },
         {
-            type: "wait",
-            icon: play,
-            name: "Wait",
-            description: "Wait for a some time",
-            config: {
-                timeout: {
-                    label: "Timeout (ms)",
-                    type: "number",
-                    value: 1000
-                }
-            }
-        },
-        {
             type: "find_element",
             icon: play,
             name: "Find Element",
