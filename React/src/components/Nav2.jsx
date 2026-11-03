@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom"
 
-function Nav2({ nodes, edges, setShowResults }) {
-
-
+function Nav2({ nodes, edges, setShowResults, setExecutionOrder, setVariables, setNodeOutputs, setDisplayNodes }) {
 
     const save = async () => {
         const data = { nodes, edges };
@@ -37,15 +35,11 @@ function Nav2({ nodes, edges, setShowResults }) {
                 alert("❌ Workflow failed: " + result.message);
                 return;
             }
-
+            setDisplayNodes(result.result.nodes);
             setShowResults(true);
-
-            alert(
-                "✅ " + result.message +
-                "\nExecution Order: " + JSON.stringify(result.result.executionOrder) +
-                "\nVariables: " + JSON.stringify(result.result.variables) +
-                "\nNode Outputs: " + JSON.stringify(result.result.nodeOutputs)
-            );
+            setExecutionOrder(result.result.executionOrder);
+            setVariables(result.result.variables);
+            setNodeOutputs(result.result.nodeOutputs);
         }
         catch (err) {
             alert("❌ Could not contact the backend!\n" + err.message);

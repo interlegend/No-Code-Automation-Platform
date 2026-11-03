@@ -58,7 +58,7 @@ function Data() {
                 result_variable: {
                     label: "Save Result As",
                     type: "text",
-                    value: "result"
+                    value: ""
                 }
             }
         },

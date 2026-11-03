@@ -20,14 +20,25 @@ function Create_Automation({ search, setsearch }) {
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
     const [selectedNode, setSelectedNode] = useState(null);
+    const [executionOrder, setExecutionOrder] = useState([]);
+    const [variables, setVariables] = useState({});
+    const [nodeOutputs, setNodeOutputs] = useState({});
 
-    return (
+    const [displaynodes, setDisplayNodes] = useState([]); return (
         <div className="flex flex-col w-full h-screen flex-1">
-            <Nav2 nodes={nodes} edges={edges} setShowResults={setShowResults} />
+            <Nav2 nodes={nodes} edges={edges}
+                setDisplayNodes={setDisplayNodes}
+                setShowResults={setShowResults} setExecutionOrder={setExecutionOrder}
+                setVariables={setVariables}
+                setNodeOutputs={setNodeOutputs} />
 
             {showResults && (
                 <Execution_results
+                    displaynodes={displaynodes}
                     onClose={() => setShowResults(false)}
+                    Executionorder={executionOrder}
+                    variables={variables}
+                    nodeOutputs={nodeOutputs}
                 />
             )}
 

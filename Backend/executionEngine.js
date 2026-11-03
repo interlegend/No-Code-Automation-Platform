@@ -15,17 +15,19 @@ function executionEngine(nodes, edges) {
 
     while (executionQueue.length > 0) {
         const current = executionQueue.shift();
-        executionOrder.push(current.data.title);
+        executionOrder.push(current.id);
         switch (current.type) {
             case "set_variable": {
                 const key = current.data.config.variable_name.value;
                 const val = current.data.config.value.value;
+                if (!val || !key) break;
                 map.set(key, val);
                 break;
             }
             case "get_variable": {
                 const key = current.data.config.variable_name.value;
                 const val = map.get(key);
+                if (!val || !key) break;
                 nodeOutputs.set(current.data.title, val);
                 break;
             }
@@ -41,6 +43,8 @@ function executionEngine(nodes, edges) {
                 if (map.has(secondValue)) {
                     secondValue = map.get(secondValue);
                 }
+
+                if (!resultVariable) break;
 
                 let num1 = Number(firstValue);
                 let num2 = Number(secondValue);
@@ -90,6 +94,7 @@ function executionEngine(nodes, edges) {
     }
 
     return {
+        nodes,
         executionOrder,
         variables: Object.fromEntries(map),
         nodeOutputs: Object.fromEntries(nodeOutputs),
