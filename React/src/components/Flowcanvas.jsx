@@ -1,6 +1,7 @@
 import { ReactFlow, Background, Controls, useNodesState, useEdgesState, addEdge, MarkerType, useReactFlow, } from "@xyflow/react"
 import "@xyflow/react/dist/style.css";
 import Triggers_nodes from './nodes/Triggers_nodes.jsx';
+import CustomConnectionLine from './CustomConnectionLine.jsx';
 import Logic_nodes from './nodes/Logic_nodes.jsx';
 import Browser_nodes from './nodes/Browser_nodes.jsx';
 import Flow_nodes from './nodes/Flow_nodes.jsx';
@@ -109,7 +110,7 @@ function Flowcanvas({
 
     return (
         <div className="w-full h-full" onDragOver={handleDragOver} onDrop={handleDrop}>
-            <ReactFlow nodes={nodes} onNodesChange={onNodesChange} edges={edges} onEdgesChange={onEdgesChange} onConnect={onConnect} nodeTypes={nodeTypes}
+            <ReactFlow nodes={nodes} onNodesChange={onNodesChange} edges={edges} onEdgesChange={onEdgesChange} onConnect={onConnect} nodeTypes={nodeTypes} connectionLineComponent={CustomConnectionLine}
                 elevateEdgesOnSelect={true}
                 defaultEdgeOptions={{
                     type: "simplebezier",

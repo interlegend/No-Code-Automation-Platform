@@ -3,7 +3,7 @@ import { Handle, Position } from "@xyflow/react";
 function Data_nodes({ data }) {
     return (
         <>
-            <div className="border-2 border-gray-200 shadow-sm w-50 h-30  items-center justify-center hover:border-gray-100 hover:shadow-md">
+            <div className="border-2 border-gray-200 shadow-sm w-50 h-30  items-center justify-center hover:border-gray-100 hover:shadow-md" style={{ overflow: 'visible' }}>
                 <div className="font-semibold text-purple-700  h-[35%] bg-purple-100 flex justify-center items-center border-t-4">DATA</div>
                 <div className="  h-[65%] bg-white flex justify-start px-2 py-2 flex-col gap-2">
                     <div className="font-bold flex items-center gap-2">

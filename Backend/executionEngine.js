@@ -15,6 +15,39 @@ async function executionEngine(nodes, edges) {
         nodeOutputs: new Map()
     }
 
+    const condition = (current, context) => {
+        let firstValue = current.data.config.first_value.value;
+        let secondValue = current.data.config.second_value.value;
+        let operator = current.data.config.operator.value;
+
+        let result = true;
+
+        switch (operator) {
+            case "==":
+                result = Number(firstValue) == Number(secondValue);
+                return result;
+            case "!=":
+                result = Number(firstValue) != Number(secondValue);
+                return result;
+
+            case ">":
+                result = Number(firstValue) > Number(secondValue);
+                return result;
+            case "<":
+                result = Number(firstValue) < Number(secondValue);
+                return result;
+
+            case "contains":
+                if (typeof firstValue !== "string" || typeof secondValue !== "string") {
+                    throw new Error("Invalid input only string allowed for this operator");
+                }
+                result = firstValue.includes(secondValue);
+                return result;
+
+            default:
+                throw new Error(`Unknown Operator: ${operator}`);
+        }
+    }
 
     const setVariable = (current, context) => {
         const key = current.data.config.variable_name.value;
@@ -84,6 +117,7 @@ async function executionEngine(nodes, edges) {
         "set_variable": setVariable,
         "get_variable": getVariable,
         "calculate": calculate,
+        "condition": condition
     }
 
     while (executionQueue.length > 0) {
@@ -92,17 +126,29 @@ async function executionEngine(nodes, edges) {
 
         const type = current.type;
         const handle = caseHandler[type];
+        let handleReturn;
         if (handle) {
-            await handle(current, context);
+            handleReturn = await handle(current, context);
         }
         else {
             throw new Error(`Invalid Node Type: ${type} `);
         }
 
+        let selectedHandle;
+        if (type === "condition") {
+            selectedHandle = handleReturn ? "bottom_left" : "bottom_right";
+        }
 
         for (const edge of edges) {
+            if (edge.source !== current.id) {
+                continue;
+            }
 
-            if (edge.source === current.id && !visited.has(edge.target)) {
+            if (type === "condition" && edge.sourceHandle !== selectedHandle) {
+                continue;
+            }
+
+            if (!visited.has(edge.target)) {
                 const targetnode = nodes.find(node => node.id === edge.target);
                 if (targetnode) {
                     executionQueue.push(targetnode);
