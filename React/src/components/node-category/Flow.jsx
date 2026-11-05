@@ -23,19 +23,6 @@ function Flow() {
             }
         },
         {
-            type: "repeat",
-            icon: play,
-            name: "Repeat",
-            description: "repeat a task",
-            config: {
-                times: {
-                    label: "Number of Repetitions",
-                    type: "number",
-                    value: 3
-                }
-            }
-        },
-        {
             type: "for_each",
             icon: play,
             name: "For Each",

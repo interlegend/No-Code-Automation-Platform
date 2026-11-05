@@ -1,6 +1,6 @@
 import { Handle, Position } from "@xyflow/react";
 
-function Flow_nodes({ data }) {
+function Flow_nodes({ data,type }) {
     return (
         <>
             <div className="border-2 border-gray-200 shadow-sm w-50 h-30  items-center justify-center hover:border-gray-100 hover:shadow-md" style={{ overflow: 'visible' }}>
@@ -13,13 +13,35 @@ function Flow_nodes({ data }) {
                     <div className="font-light text-sm">{data.description}</div>
                 </div>
             </div>
+            {type.toLowerCase() !== "for_each" ? (
             <Handle
                 id="bottom"
                 type="source"
                 position={Position.Bottom}
                 isConnectableEnd={false}
                 className="w-3! h-3! bg-zinc-800! border-2!  rounded-full! ring-2! ring-zinc-800! ring-offset-2! ring-offset-zinc-100! hover:bg-black! hover:ring-black! hover:ring-offset-zinc-800! hover:ring-3! hover:ring-offset-3! transition"
+            />)
+            :(<>
+              <Handle
+                id="bottom_left"
+                type="source"
+                position={Position.Bottom}
+                style={{ left: '25%', bottom: '-6px' }}
+                className="w-3! h-3! bg-green-600! border-2!  rounded-full! ring-2! ring-green-600! ring-offset-2! ring-offset-green-100! hover:bg-green! hover:ring-green! hover:ring-offset-green-600! hover:ring-3! hover:ring-offset-3! transition"
+                isConnectableEnd={false}
             />
+
+            <Handle
+                id="bottom_right"
+                type="source"
+                position={Position.Bottom}
+                style={{ left: '75%', bottom: '-6px' }}
+                className="w-3! h-3! bg-red-600! border-2!  rounded-full! ring-2! ring-red-600! ring-offset-2! ring-offset-red-100! hover:bg-red! hover:ring-red! hover:ring-offset-red-600! hover:ring-3! hover:ring-offset-3! transition"
+                isConnectableEnd={false}
+            />  
+            </>
+            )
+            }
             <Handle
                 id="top"
                 type="target"

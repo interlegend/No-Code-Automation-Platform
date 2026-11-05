@@ -4,15 +4,81 @@ async function executionEngine(nodes, edges) {
 
     validateGraph(nodes, edges);
 
-    const start = nodes.find(node => node.type === "start");
-    let executionQueue = [start];
-    let executionOrder = [];
-    let visited = new Set();
-    visited.add(start.id);
-
     const context = {
         variables: new Map(),
-        nodeOutputs: new Map()
+        nodeOutputs: new Map(),
+        execution: {
+            stopped: false,
+            status: null,
+            message: null
+        }
+    }
+
+    let executionOrder = [];
+
+    const forEach = async (current,context) => {
+        const arrName = current.data.config.list.value;
+        const item = current.data.config.item_var.value;
+        const arr = context.variables.get(arrName);
+        let selectedHandle = "bottom_left";
+        const body = getNextNode(current,edges,nodes,selectedHandle);
+        for(const element of arr){
+            if(context.execution.stopped == true){
+                break;
+            }
+            context.variables.set(item,element);
+            await executePath(body, executionOrder, current.id);
+        }
+    }
+
+    const stop = (current,context) => {
+        const status = current.data.config.status.value;
+        const message = current.data.config.message.value;
+        context.execution.stopped = true;
+        context.execution.status = status;
+        context.execution.message = message;
+    }
+
+    const wait = async (current, context) => {
+        const duration = current.data.config.duration.value;
+        const unit = current.data.config.unit.value;
+        let multiplier;
+        switch(unit.toLowerCase()){ 
+        case "milliseconds" :{
+            multiplier = 1;
+            break;
+        }
+        case "seconds": {
+            multiplier = 1000;
+            break;
+        }
+        case "minutes":{
+            multiplier = 60000;
+            break;
+        }
+        default: {
+            throw new Error("Invalid option:");
+        }
+    }
+        const ms = duration * multiplier;
+            await new Promise(resolve => {
+                setTimeout(resolve,ms);
+            }
+        )
+
+    }
+
+    const loop = async (current, context) => {
+        const icount = current.data.config.iterations.value
+        let selectedHandle = "bottom_left";
+        const body = getNextNode(current, edges, nodes, selectedHandle);
+
+        for (let i = 0; i < icount; i++) {
+            if(context.execution.stopped == true){
+                break;
+            }
+            await executePath(body, executionOrder, current.id);
+        }
     }
 
     const condition = (current, context) => {
@@ -114,56 +180,74 @@ async function executionEngine(nodes, edges) {
     }
 
     const caseHandler = {
+        "start": () => { },
         "set_variable": setVariable,
         "get_variable": getVariable,
         "calculate": calculate,
-        "condition": condition
+        "condition": condition,
+        "loop": loop,
+        "wait": wait,
+        "stop" : stop,
+        "for_each": forEach
     }
 
-    while (executionQueue.length > 0) {
-        const current = executionQueue.shift();
-        executionOrder.push(current.id);
-
-        const type = current.type;
-        const handle = caseHandler[type];
-        let handleReturn;
-        if (handle) {
-            handleReturn = await handle(current, context);
-        }
-        else {
-            throw new Error(`Invalid Node Type: ${type} `);
-        }
-
-        let selectedHandle;
-        if (type === "condition") {
-            selectedHandle = handleReturn ? "bottom_left" : "bottom_right";
-        }
-
+    const getNextNode = (current, edges, nodes, selectedHandle) => {
         for (const edge of edges) {
-            if (edge.source !== current.id) {
-                continue;
-            }
-
-            if (type === "condition" && edge.sourceHandle !== selectedHandle) {
-                continue;
-            }
-
-            if (!visited.has(edge.target)) {
-                const targetnode = nodes.find(node => node.id === edge.target);
-                if (targetnode) {
-                    executionQueue.push(targetnode);
-                    visited.add(targetnode.id);
+            if (edge.source == current.id) {
+                if (selectedHandle && edge.sourceHandle === selectedHandle) {
+                    return nodes.find(node => node.id == edge.target);
+                }
+                if (!selectedHandle) {
+                    return nodes.find(node => node.id == edge.target);
                 }
             }
         }
+        return null;
     }
 
+    const executeNode = async (node) => {
+        const handle = caseHandler[node.type];
+        if (handle) {
+            let handleReturn = await handle(node, context);
+            return handleReturn;
+        }
+        else {
+            throw new Error(`Invalid Node Type: ${node.type}`);
+        }
+    }
+
+    const executePath = async (current, executionOrder, stopAt) => {
+        while (current && current.id != stopAt && context.execution.stopped != true) {
+            executionOrder.push(current.id);
+            let selectedHandle;
+            let result = await executeNode(current);
+            if (current.type === "condition") {
+                selectedHandle = result ? "bottom_left" : "bottom_right";
+            }
+            if (current.type === "loop") {
+                selectedHandle = "bottom_right";
+            }
+
+            if(current.type === "for_each"){
+                selectedHandle = "bottom_right";
+            }
+            
+            current = getNextNode(current, edges, nodes, selectedHandle);
+        }
+        return executionOrder;
+    }
+
+    const start = nodes.find(node => node.type === "start");
+
+    executionOrder = await executePath(start, executionOrder);
+
+    const execution = context.execution;
     return {
+        execution,
         nodes,
         executionOrder,
         variables: Object.fromEntries(context.variables),
         nodeOutputs: Object.fromEntries(context.nodeOutputs),
     };
 }
-
 export default executionEngine;

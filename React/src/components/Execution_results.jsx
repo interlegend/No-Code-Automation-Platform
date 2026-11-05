@@ -39,6 +39,22 @@ function Execution_results({ onClose, Executionorder, variables, nodeOutputs, di
         setSelectedNode(displaynodes.find((n) => n.id === nodeid))
     }
 
+    const getDisplayName = (nodeId) => {
+        const node = displaynodes.find(n => n.id === nodeId);
+
+        if (!node) return nodeId;
+
+        const sameTitleNodes = displaynodes.filter(
+            n => n.data.title === node.data.title
+        );
+
+        const index = sameTitleNodes.findIndex(
+            n => n.id === nodeId
+        );
+
+        return `${node.data.title} ${index + 1}`;
+    };
+
     return (
 
 
@@ -80,9 +96,9 @@ function Execution_results({ onClose, Executionorder, variables, nodeOutputs, di
                     <div className="border-2 border-gray-200 p-3 rounded-md min-h-auto flex-1">
                         <h1 className="font-bold text-lg">Execution Order</h1>
                         <div className="flex flex-col gap-2 ">{Executionorder.map(
-                            (nodeid, i) => <div className="flex gap-4 items-center ">
+                            (nodeid, i) => <div key={`${nodeid}-${i}`} className="flex gap-4 items-center ">
                                 <div className="rounded-full w-6 h-6 bg-green-200 text-center font-semibold">{i + 1}</div>
-                                <div className="font-semibold border-2 border-gray-200 p-2 cursor-pointer" onClick={() => { findNode(nodeid) }}>{displaynodes.find((n) => n.id === nodeid)?.data?.title}</div>
+                                <div className="font-semibold border-2 border-gray-200 p-2 cursor-pointer" onClick={() => { findNode(nodeid) }}>{getDisplayName(nodeid)}</div>
                             </div>
                         )}
                         </div>
@@ -180,7 +196,7 @@ function Execution_results({ onClose, Executionorder, variables, nodeOutputs, di
                                 {Object.keys(nodeOutputs || {}).map(
                                     (key) => (
                                         <tr key={key} className="divide-x divide-slate-200">
-                                            <td className="px-4 py-3  font-semibold">{key}
+                                            <td className="px-4 py-3  font-semibold">{getDisplayName(key)}
                                             </td>
                                             <td className="px-4 py-3 font-bold">{nodeOutputs[key]}
                                             </td>
